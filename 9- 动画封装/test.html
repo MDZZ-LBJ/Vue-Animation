@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <fade :show="show">
+        <div> hello world</div>
+    </fade>
+    <fade :show="show"><h1> hello world</h1></fade>
+    <button @click="handle">点击</button>
+</div>
+<script>        /*
+                定义一个名为fade的动画组件 通过给solt传dom元素实现添加动画
+                将动画的css写在动画组件的methods中用js去控制
+                 @before-enter 动画开始时执行的方法
+                 @enter 动画结束时执行的方法
+                */
+Vue.component('fade', {
+    props: ['show'], /* 接受父组件传来的show值 下面必须时v-if*/
+    template: `
+           <transition
+                @before-enter="handleBeforEnter"
+                @enter="handleEnter"
+           >
+                <slot v-if="show"> hello world</slot>
+
+           </transition>        `,
+    methods: {
+        handleBeforEnter(el) {
+            el.style.color = 'red'
+        }, handleEnter(el, done) {
+            setTimeout(function () {
+                el.style.color = 'green'
+                done()  /* 结束时调用done方法 */
+            }, 2000)
+        }
+    }
+})
+var app = new Vue({
+    el: '#app', data: {show: true}, methods: {
+        handle() {
+            this.show = !this.show
+        }
+    }
+})</script>
+</body>
+</html>

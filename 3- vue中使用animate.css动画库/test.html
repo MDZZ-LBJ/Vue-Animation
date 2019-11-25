@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="animate.css">
+</head>
+<body>
+<div id="app">            <!-- 使用animate动画库 必须使用自定义类名的形式            入场动画 离场动画 必须要加上 animated这个类名 然后加上动画名-->
+    <transition enter-active-class="animated swing" leave-active-class="animated shake">
+        <div v-if="show"> hello world</div>
+    </transition>
+    <button @click="handle">点击</button>
+</div>
+<script>    var app = new Vue({
+    el: '#app', data: {show: true}, methods: {
+        handle() {
+            this.show = !this.show
+        }
+    }
+})</script>
+</body>
+</html>

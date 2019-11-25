@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+    <link rel="stylesheet" href="../animate.css">
+</head>
+<body>
+
+<style>
+
+    .v-enter, .v-leave-to{
+        opacity: 0;
+    }
+
+    .v-enter-active , .v-leave-active{
+        transition: opacity 1s;
+    }
+
+</style>
+
+<!--
+使用transition-group标签
+下面v-for便利出来的元素是很多div, 要使用transition-group包裹他们
+-->
+
+
+<div id="app">
+    <transition-group>
+        <div v-for="(item,index) of list" :key="index">
+            {{item.title}}
+        </div>
+    </transition-group>
+    <button @click="handle">点击</button>
+</div>
+
+<script>
+    var i=0
+    var app=new Vue({
+        el:'#app',
+        data:{
+            list:[]
+        },
+        methods:{
+            handle(){
+                this.list.push({
+                    id:i,
+                    title:'hello world'+i
+                })
+                i++
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

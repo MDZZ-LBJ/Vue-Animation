@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style>  /* 使用 @keyframes 关键帧动画 */
+    @keyframes bounce-in {
+        0% {
+            transform: scale(0);
+        }
+        50% {
+            transform: scale(1.5);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .active {
+        transform-origin: left center;
+        animation: bounce-in 1s;
+    }
+
+    .leave {
+        transform-origin: left center;
+        animation: bounce-in 1s reverse; /* reverse 反向执行*/
+    }    </style>
+</head>
+<body>
+<div id="app">                 <!--  自定义类名 -->
+    <transition enter-active-class="active" leave-active-class="leave">
+        <div v-if="show"> hello world</div>
+    </transition>
+    <button @click="handle">点击</button>
+</div>
+<script>    var app = new Vue({
+    el: '#app', data: {show: true}, methods: {
+        handle() {
+            this.show = !this.show
+        }
+    }
+})</script>
+</body>
+</html>

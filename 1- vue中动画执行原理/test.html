@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style>        /* 执行原理： 动画即将开始时opacity: 0; 开始时-enter消失opacity变为默认的1，
+                     -enter-active监听 opacity变化  动画结束时-enter-active消失        */
+    .v-enter {
+        opacity: 0;
+    }
+
+    .v-enter-active {
+        transition: opacity 3s;
+    }
+
+      /*       执行原理： 动画即将开始时opacity: 1; 开始时增加-leave-to opacity变为0，
+               -leave-active监听 opacity变化  动画结束时-leave-active消失
+             */
+    .v-leave-to {
+        opacity: 0;
+    }
+
+    .v-leave-active {
+        transition: opacity 3s;
+    }
+
+    /*  简写
+        .v-enter .v-leave-to{
+              opacity: 0;
+         }
+        .v-enter-active .v-leave-active{
+             transition: opacity 3s;
+        }
+    */
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <transition> <!-- 若这里写name="aa" 上面的v要换成aa 给多个元素添加不同动画时可以加上名字区分动画效果--><!-- 控制显示隐藏 使用v-if 或者 v-show 都可以使动画生效 -->
+        <div v-if="show"> hello world</div>
+    </transition>
+    <button @click="handle">点击</button>
+</div>
+<script>
+
+    /*
+    Vue只有在插入，更新或者移除DOM元素时才会应用过渡效果
+    使用动画 必须要给要加入动画的元素外层包上transition标签
+    name为动画的名字 若不写name , vue默认的前缀是v ，若写了name css必须要用name-
+    当一个元素被transition包裹之后 vue会自动解析css样式 构建一个动画的流程
+
+    显示过程：
+    在动画即将执行时给元素增加两个class-> v-enter , v-enter-active
+    当动画第一帧执行结束后 执行第二帧动画时 vue会将之前的v-enter这个class去掉
+    增加v-enter-to，当执行到结束时会将v-enter-to 以及v-enter-active 去掉
+
+    隐藏过程：
+    在动画即将执行时给元素增加两个class-> v-leave , v-leave-active
+    当动画第一帧执行结束后 执行第二帧动画时 vue会将之前的v-leave这个class去掉
+    增加v-leave-to，当执行到结束时会将v-leave-to 以及v-leave-active 去掉
+    */
+
+    var app = new Vue({
+    el: '#app', data: {show: true}, methods: {
+        handle() {
+            this.show = !this.show
+        }
+    }
+})  </script>
+</body>
+</html>

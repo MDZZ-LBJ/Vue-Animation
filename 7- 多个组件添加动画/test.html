@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+    <link rel="stylesheet" href="../animate.css">
+</head>
+<body>
+<style>.v-enter, .v-leave-to {
+    opacity: 0;
+}
+
+.v-enter-active, .v-leave-active {
+    transition: opacity 1s;
+}</style>
+<div id="app">   <!--    多个组件之间添加动画不用像多个元素那样添加key    另一种方式:通过动态组件的方式   -->
+    <transition mode="out-in">        <!-- 动态组件的方式 -->
+        <component :is="type"></component>        <!-- 基本方式 -->
+        <!--            <C1  v-if="show"  > hello world </C1>            <C2  v-else="show"  > bye world </C2>        -->
+    </transition>
+    <button @click="handle">点击</button>
+</div>
+<script>    Vue.component('C1', {template: '<div>C1</div>'})
+Vue.component('C2', {template: '<div>C2</div>'})
+var app = new Vue({
+    el: '#app', data: {show: true, type: 'C1',}, methods: {
+        handle() {
+            this.show = !this.show
+            this.type = this.type == 'C1' ? 'C2' : 'C1'
+        }
+    }
+})</script>
+</body>
+</html>

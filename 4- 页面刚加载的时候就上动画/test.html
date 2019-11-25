@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js"></script>
+    <link rel="stylesheet" href="../animate.css">
+</head>
+<body>
+
+<div id="app">
+
+    <!--
+      虽然点击按钮实现了添加动画 但是页面刚加载的时候就想加上动画
+      就要使用appear-active-class这个类名 固定为appear 被变 上面还要在写一遍appear
+    -->
+    <transition
+            appear
+            enter-active-class="animated swing"
+            leave-active-class="animated shake"
+            appear-active-class="animated swing"
+    >
+        <div v-if="show"> hello world</div>
+    </transition>
+
+    <button @click="handle">点击</button>
+</div>
+
+
+<script>
+
+    var app=new Vue({
+        el:'#app',
+        data:{
+            show:true
+        },
+        methods:{
+            handle(){
+                this.show=!this.show
+            }
+        }
+    })
+
+</script>
+
+
+</body>
+</html>
